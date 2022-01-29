@@ -5,8 +5,16 @@
         select * from location_code
     </select>
 
-    <select id="selAptList" resultType="ApartmentInfoEntity">
-        select iapart from apartment_info where excd = #{excd} and dealyear = #{dealyear} and #{dealmonth} = dealmonth
+    <select id="selloca_cd" resultType="Integer">
+        select loca_cd from location_code where ex_cd = ${excd}
+    </select>
+
+    <select id="selAptList" resultType="ApartmentInfoVO">
+        SELECT A.*,B.loca_nm AS locanm from apartment_info A
+        JOIN location_code B
+        on A.excd = B.ex_cd
+        where excd = #{excd} and dealyear = #{dealyear} and dealmonth = #{dealmonth}
+        ORDER BY dealamount DESC
     </select>
 
     <insert id="insAptInfo">
